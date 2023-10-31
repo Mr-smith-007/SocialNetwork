@@ -19,6 +19,7 @@ namespace SocialNetwork.DAL.Repositories
                 return connection.QueryFirstOrDefault<T>(sql, parameters);
             }
         }
+
         protected List<T> Query<T>(string sql, object parameters = null)
         {
             using (var connection = CreateConnection())
@@ -27,7 +28,8 @@ namespace SocialNetwork.DAL.Repositories
                 return connection.Query<T>(sql, parameters).ToList();
             }
         }
-        protected int Execute (string sql, object parameters = null)
+
+        protected int Execute(string sql, object parameters = null)
         {
             using (var connection = CreateConnection())
             {
@@ -35,9 +37,10 @@ namespace SocialNetwork.DAL.Repositories
                 return connection.Execute(sql, parameters);
             }
         }
+
         private IDbConnection CreateConnection()
         {
-            return new SQLiteConnection("Data Source = DAL/BDB/social_netwirk.db; Version = 3");
+            return new SQLiteConnection("Data Source = DAL/DB/social_network_bd.db; Version = 3");
         }
     }
 }
