@@ -56,7 +56,11 @@ namespace SocialNetwork.BLL.Servises
         public User Authenticate (UserAuthenticationData userAuthenticationData)
         {
             var findUserEntity = userRepository.FindByEmail(userAuthenticationData.Email);
-            if (findUserEntity is null) throw UserNotFoundException();
+            if (findUserEntity is null) throw new UserNotFoundException();
+
+            if (findUserEntity.password != userAuthenticationData.Password)
+                throw new WrongPasswordException();
+
 
             return ConstructUserModel(findUserEntity);
         }
