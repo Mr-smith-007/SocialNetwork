@@ -34,9 +34,16 @@ namespace SocialNetwork.PLL.Views
             Console.Write("Моя любимая книга:");
             user.FavoriteBook = Console.ReadLine();
 
-            this.userService.Update(user);
-
-            SuccessMessage.Show("Ваш профиль успешно обновлён!");
+            try
+            {
+                this.userService.Update(user);
+                SuccessMessage.Show("Ваш профиль успешно обновлён!");
+            }
+            catch (Exception) 
+            {
+                AlertMessage.Show("Возникла ошибка при обновлении профиля");
+            }
+               
         }
     }
 }

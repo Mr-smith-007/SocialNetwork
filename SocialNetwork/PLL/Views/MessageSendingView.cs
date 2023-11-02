@@ -14,10 +14,10 @@ namespace SocialNetwork.PLL.Views
     {
         UserService userService;
         MessageService messageService;
-        public MessageSendingView(MessageService messageService, UserService userService)
+        public MessageSendingView(UserService userService, MessageService messageService)
         {
-            this.messageService = messageService;
             this.userService = userService;
+            this.messageService = messageService;
         }
 
         public void Show(User user)
@@ -37,8 +37,6 @@ namespace SocialNetwork.PLL.Views
                 messageService.SendMessage(messageSendingData);
 
                 SuccessMessage.Show("Сообщение успешно отправлено!");
-
-                user = userService.FindById(user.Id);
             }
 
             catch (UserNotFoundException)
@@ -49,6 +47,11 @@ namespace SocialNetwork.PLL.Views
             catch (ArgumentNullException)
             {
                 AlertMessage.Show("Введите корректное значение!");
+            }
+
+            catch (ArgumentOutOfRangeException)
+            {
+                AlertMessage.Show("Сообщение должно содержать не более 5000 символов");
             }
 
             catch (Exception)

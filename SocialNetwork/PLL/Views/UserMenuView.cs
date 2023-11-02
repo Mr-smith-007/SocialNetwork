@@ -21,18 +21,21 @@ namespace SocialNetwork.PLL.Views
             while (true)
             {
                 Console.WriteLine("Входящие сообщения: {0}", user.IncomingMessages.Count());
-                Console.WriteLine("Исходящие сообщения: {0}", user.OutgoingMessages.Count());
+                Console.WriteLine("Исходящие сообщения: {0}", user.OutcomingMessages.Count());
+                Console.WriteLine("Мои друзья: {0}", user.Friends.Count());
 
                 Console.WriteLine("Просмотреть информацию о моём профиле (нажмите 1)");
                 Console.WriteLine("Редактировать мой профиль (нажмите 2)");
-                Console.WriteLine("Написать сообщение (нажмите 4)");
-                Console.WriteLine("Просмотреть входящие сообщения (нажмите 5)");
-                Console.WriteLine("Просмотреть исходящие сообщения (нажмите 6)");
-                Console.WriteLine("Выйти из профиля (нажмите 7)");
+                Console.WriteLine("Добавить в друзья (нажмите 3)");
+                Console.WriteLine("Просмотреть список друзей (нажмите 4)");
+                Console.WriteLine("Написать сообщение (нажмите 5)");
+                Console.WriteLine("Просмотреть входящие сообщения (нажмите 6)");
+                Console.WriteLine("Просмотреть исходящие сообщения (нажмите 7)");
+                Console.WriteLine("Выйти из профиля (нажмите 8)");
 
                 string keyValue = Console.ReadLine();
 
-                if (keyValue == "7") break;
+                if (keyValue == "8") break;
 
                 switch (keyValue)
                 {
@@ -44,25 +47,40 @@ namespace SocialNetwork.PLL.Views
                     case "2":
                         {
                             Program.userDataUpdateView.Show(user);
+                            user = userService.FindById(user.Id);
+                            break;
+                        }
+
+                    case "3":
+                        {
+                            Program.userAddFriendView.Show(user);
+                            user = userService.FindById(user.Id);
                             break;
                         }
 
                     case "4":
                         {
-                            Program.messageSendingView.Show(user);
+                            Program.userFriendListView.Show(user.Friends);
                             break;
                         }
 
                     case "5":
+                        {
+                            Program.messageSendingView.Show(user);
+                            user = userService.FindById(user.Id);
+                            break;
+                        }
+
+                    case "6":
                         {
 
                             Program.userIncomingMessageView.Show(user.IncomingMessages);
                             break;
                         }
 
-                    case "6":
+                    case "7":
                         {
-                            Program.userOutcomingMessageView.Show(user.OutgoingMessages);
+                            Program.userOutcomingMessageView.Show(user.OutcomingMessages);
                             break;
                         }
                 }
